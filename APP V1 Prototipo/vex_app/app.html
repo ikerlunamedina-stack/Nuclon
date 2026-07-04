@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEX · GamerOS</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div class="ambient" id="ambient"></div>
+
+<div class="iphone-scaler" id="iphoneScaler">
+<div class="iphone">
+  <div class="mute"></div>
+  <div class="volume1"></div>
+  <div class="volume2"></div>
+  <div class="power"></div>
+
+  <div class="screen">
+    <div class="dynamic-island"><div class="camera"></div></div>
+
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+      <span class="status-time" id="stime">12:00</span>
+      <div class="status-icons">
+        <svg viewBox="0 0 24 24"><path d="M1 6l11 11L23 6"/></svg>
+        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="2"/><path d="M22 11h1v4h-1"/></svg>
+      </div>
+    </div>
+
+    <!-- ======================== PAGE: INICIO ======================== -->
+    <div class="screen-page active" id="page-home">
+      <div class="page-inner">
+        <div class="avatar-hero">
+          <img src="" onerror="this.style.display='none'"/>
+          V
+          <div class="online-ring"></div>
+        </div>
+        <div class="hero-name">VEX</div>
+        <div class="hero-handle">@qv3x · 🇵🇪 Perú</div>
+        <div class="hero-meta">
+          <span class="pill"><span class="dot-status online"></span>Jugando</span>
+          <span class="pill">🎮 Gamer</span>
+          <span class="pill">🗣 ES / EN</span>
+        </div>
+        <div class="level-bar">
+          <div class="level-info">
+            <span class="level-label">NIVEL</span>
+            <span class="level-num">47</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="width:72%"></div></div>
+          <div class="xp-text">3,600 / 5,000 XP</div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-box"><div class="stat-num">724</div><div class="stat-label">Horas</div></div>
+          <div class="stat-box"><div class="stat-num">18</div><div class="stat-label">Juegos</div></div>
+          <div class="stat-box"><div class="stat-num">134</div><div class="stat-label">Amigos</div></div>
+        </div>
+        <div class="section-head">Insignias</div>
+        <div class="badges-row">
+          <div class="badge-chip" title="Fundador">🏅</div>
+          <div class="badge-chip" title="Rank Diamante">💎</div>
+          <div class="badge-chip" title="Streamer activo">🎙</div>
+          <div class="badge-chip" title="Top fragger">🔫</div>
+          <div class="badge-chip" title="Coleccionista">📦</div>
+          <div class="badge-chip" title="21 días de racha">⚡</div>
+          <div class="badge-chip" title="100+ amigos">👥</div>
+          <div class="badge-chip" title="Clan líder">👑</div>
+        </div>
+        <div class="section-head">Redes</div>
+        <div class="socials-row">
+          <a class="soc-btn" href="https://discord.gg/yXXG7jmvq4" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 8.5C9.5 7 14.5 7 17 8.5"/><path d="M6 16c4 1.5 8 1.5 12 0"/><path d="M8.5 9.5C5.5 10.5 4 13 4.5 17c1.5 1 3 1.5 3 1.5l1-2"/><path d="M15.5 9.5c3 1 4.5 3.5 4 7.5-1.5 1-3 1.5-3 1.5l-1-2"/><ellipse cx="9" cy="14" rx="1.1" ry="1.4" fill="currentColor" stroke="none"/><ellipse cx="15" cy="14" rx="1.1" ry="1.4" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a class="soc-btn" href="https://www.youtube.com/channel/UCvHihDFoY5kYtEY3wKatELA" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M11 10l4 2-4 2v-4z" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a class="soc-btn" href="https://kick.com/qv3x" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4v16"/><path d="M16 4 8.5 12 16 20"/><path d="M12.5 12h4"/></svg>
+          </a>
+          <a class="soc-btn" href="https://www.tiktok.com/@vexi.p" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 4v9.5a3.5 3.5 0 1 1-3-3.46"/><path d="M14 4c.4 2.2 2 3.7 4 4"/></svg>
+          </a>
+        </div>
+        <div class="section-head">Actividad reciente</div>
+        <div class="card" style="padding:4px 12px;">
+          <div class="feed-item"><div class="feed-icon">🏆</div><div><div class="feed-text">Logro desbloqueado en <b>Valorant</b></div><div class="feed-time">hace 2 h</div></div></div>
+          <div class="feed-item"><div class="feed-icon">🎬</div><div><div class="feed-text">Nuevo clip: <b>Ace en Split</b></div><div class="feed-time">hace 5 h</div></div></div>
+          <div class="feed-item"><div class="feed-icon">👥</div><div><div class="feed-text">Nuevo amigo: <b>@nx_kira</b></div><div class="feed-time">ayer</div></div></div>
+          <div class="feed-item"><div class="feed-icon">⚡</div><div><div class="feed-text">Racha de 21 días en <b>Roblox</b></div><div class="feed-time">ayer</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================== PAGE: JUEGOS ======================== -->
+    <div class="screen-page" id="page-games">
+      <div class="page-inner">
+        <div class="section-head" style="margin-top:6px;">Biblioteca</div>
+        <div class="game-card-full">
+          <div class="game-thumb">🎯</div>
+          <div class="game-info"><div class="game-title">Valorant</div><div class="game-sub">FPS · Táctico</div></div>
+          <div class="game-right-col"><div class="game-hrs">124h</div><div class="game-hrs-label">JUGADAS</div><div class="streak-badge"><svg viewBox="0 0 24 24"><path d="M13 2L4.5 13.5H11L10 22L19.5 10.5H13L13 2Z"/></svg>21 días</div></div>
+        </div>
+        <div class="game-card-full">
+          <div class="game-thumb">🧱</div>
+          <div class="game-info"><div class="game-title">Roblox</div><div class="game-sub">Sandbox · Social</div></div>
+          <div class="game-right-col"><div class="game-hrs">310h</div><div class="game-hrs-label">JUGADAS</div><div class="streak-badge"><svg viewBox="0 0 24 24"><path d="M13 2L4.5 13.5H11L10 22L19.5 10.5H13L13 2Z"/></svg>14 días</div></div>
+        </div>
+        <div class="game-card-full">
+          <div class="game-thumb">🔫</div>
+          <div class="game-info"><div class="game-title">CS2</div><div class="game-sub">FPS · Competitivo</div></div>
+          <div class="game-right-col"><div class="game-hrs">87h</div><div class="game-hrs-label">JUGADAS</div><div class="streak-badge"><svg viewBox="0 0 24 24"><path d="M13 2L4.5 13.5H11L10 22L19.5 10.5H13L13 2Z"/></svg>5 días</div></div>
+        </div>
+        <div class="game-card-full">
+          <div class="game-thumb">🌆</div>
+          <div class="game-info"><div class="game-title">GTA V</div><div class="game-sub">Acción · Open world</div></div>
+          <div class="game-right-col"><div class="game-hrs">203h</div><div class="game-hrs-label">JUGADAS</div><div class="streak-badge" style="color:var(--muted2)">— sin racha</div></div>
+        </div>
+        <div class="section-head">Plataformas</div>
+        <div class="platform-row">
+          <div class="platform-chip">🖥 PC</div>
+          <div class="platform-chip">📱 Mobile</div>
+          <div class="platform-chip">🟣 PS5</div>
+        </div>
+        <div class="section-head">Género favorito</div>
+        <div class="card" style="padding:12px 14px;">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <span class="badge yellow">FPS</span>
+            <span class="badge">Sandbox</span>
+            <span class="badge">Acción</span>
+            <span class="badge">RPG</span>
+          </div>
+        </div>
+        <div class="section-head">Logros destacados</div>
+        <div class="achievement"><div class="ach-icon">🏆</div><div><div class="ach-name">Ace en partida clasificatoria</div><div class="ach-game">Valorant · Mapa Split</div><div class="ach-rare">RARO · 2.4% de jugadores</div></div></div>
+        <div class="achievement"><div class="ach-icon">💎</div><div><div class="ach-name">Rank Diamante alcanzado</div><div class="ach-game">Valorant · Season 8</div><div class="ach-rare">ÉPICO · 0.8% de jugadores</div></div></div>
+        <div class="achievement"><div class="ach-icon">⚡</div><div><div class="ach-name">Racha de 21 días</div><div class="ach-game">Roblox</div><div class="ach-rare">COMÚN</div></div></div>
+      </div>
+    </div>
+
+    <!-- ======================== PAGE: CLIPS ======================== -->
+    <div class="screen-page" id="page-clips">
+      <div class="page-inner">
+        <div class="section-head" style="margin-top:6px;">Clip destacado</div>
+        <div class="clip-featured">
+          <div class="clip-featured-thumb">🎯<div class="clip-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><div class="clip-pinned">📌 FIJADO</div></div>
+          <div class="clip-featured-info"><div style="font-size:13px;font-weight:600;color:var(--ink);">Ace en Split — Rank Diamante</div><div style="font-size:10px;color:var(--muted);margin-top:4px;">Valorant · 1.2K views · hace 3 días</div></div>
+        </div>
+        <div class="section-head">Highlights</div>
+        <div class="clips-grid">
+          <div class="clip-card"><div class="clip-thumb">🔫<div class="clip-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><div class="clip-info"><div class="clip-title">4K + clutch</div><div class="clip-meta">CS2 · 834 views</div></div></div>
+          <div class="clip-card"><div class="clip-thumb">🧱<div class="clip-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><div class="clip-info"><div class="clip-title">Escape épico</div><div class="clip-meta">Roblox · 2.1K views</div></div></div>
+          <div class="clip-card"><div class="clip-thumb">🎯<div class="clip-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><div class="clip-info"><div class="clip-title">Sniper highlight</div><div class="clip-meta">Valorant · 560 views</div></div></div>
+          <div class="clip-card"><div class="clip-thumb">🌆<div class="clip-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><div class="clip-info"><div class="clip-title">Full lobby limpio</div><div class="clip-meta">GTA V · 3.4K views</div></div></div>
+        </div>
+        <div class="section-head" style="margin-top:18px;">Por juego</div>
+        <div class="card-sm row"><div class="row" style="gap:10px;"><div class="icon-box">🎯</div><div><div style="font-size:12px;color:var(--ink);">Valorant</div><div style="font-size:10px;color:var(--muted);">8 clips</div></div></div><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+        <div class="card-sm row"><div class="row" style="gap:10px;"><div class="icon-box">🔫</div><div><div style="font-size:12px;color:var(--ink);">CS2</div><div style="font-size:10px;color:var(--muted);">4 clips</div></div></div><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+        <div class="card-sm row"><div class="row" style="gap:10px;"><div class="icon-box">🧱</div><div><div style="font-size:12px;color:var(--ink);">Roblox</div><div style="font-size:10px;color:var(--muted);">6 clips</div></div></div><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+      </div>
+    </div>
+
+    <!-- ======================== PAGE: MATCH ======================== -->
+    <div class="screen-page" id="page-match">
+      <div class="page-inner">
+        <div class="match-hero">
+          <div class="match-pct" id="matchPct">—<span>%</span></div>
+          <div class="match-label">Compatibilidad media con tu perfil</div>
+          <div class="match-bars">
+            <div class="match-row"><div class="match-row-head"><span class="match-row-label">Juegos en común</span><span class="match-row-val">3/4</span></div><div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div></div>
+            <div class="match-row"><div class="match-row-head"><span class="match-row-label">Música similar</span><span class="match-row-val">80%</span></div><div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div></div>
+            <div class="match-row"><div class="match-row-head"><span class="match-row-label">Idioma compartido</span><span class="match-row-val">ES ✓</span></div><div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div></div>
+            <div class="match-row"><div class="match-row-head"><span class="match-row-label">Horario compatible</span><span class="match-row-val">Tarde</span></div><div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div></div>
+          </div>
+        </div>
+        <div class="section-head">Buscar compañeros</div>
+        <div class="search-box"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><div class="search-box-text"><div class="search-box-title">Dúo Valorant</div><div class="search-box-sub">Buscar jugador de rango similar</div></div><div class="search-box-count">12 online</div></div>
+        <div class="search-box"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><div class="search-box-text"><div class="search-box-title">Equipo CS2</div><div class="search-box-sub">5v5 · Competitivo</div></div><div class="search-box-count">7 online</div></div>
+        <div class="search-box"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><div class="search-box-text"><div class="search-box-title">Amigos Roblox</div><div class="search-box-sub">Cualquier servidor</div></div><div class="search-box-count">23 online</div></div>
+        <div class="search-box"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><div class="search-box-text"><div class="search-box-title">Por región</div><div class="search-box-sub">Latinoamérica · SA</div></div><div class="search-box-count">41 online</div></div>
+        <div class="section-head">Jugadores compatibles</div>
+        <div class="card" style="padding:4px 12px;">
+          <div class="compat-item"><div class="compat-avatar">K</div><div class="compat-info"><div class="compat-name">@nx_kira</div><div class="compat-games">Valorant · CS2 · Roblox</div></div><div class="compat-pct">92%</div></div>
+          <div class="compat-item"><div class="compat-avatar">Z</div><div class="compat-info"><div class="compat-name">@zeph_plays</div><div class="compat-games">Valorant · GTA V</div></div><div class="compat-pct">78%</div></div>
+          <div class="compat-item"><div class="compat-avatar">M</div><div class="compat-info"><div class="compat-name">@mxrk</div><div class="compat-games">CS2 · Roblox</div></div><div class="compat-pct">71%</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================== PAGE: MÚSICA ======================== -->
+    <div class="screen-page" id="page-music">
+      <div class="page-inner">
+        <div class="section-head" style="margin-top:6px;">Escuchando ahora</div>
+        <div class="music-top">
+          <div class="music-icon">🎵</div>
+          <div style="flex:1;min-width:0;"><div class="music-title">Tu canción aquí</div><div class="music-sub">Reemplaza AUDIO.mp3</div></div>
+          <div class="eq-live"><b></b><b></b><b></b><b></b><b></b></div>
+        </div>
+        <div class="spotify-mini">
+          <iframe src="https://open.spotify.com/embed/user/31t6hgsbndfhoexpruckw6yuvnhe?utm_source=generator&theme=0"
+            height="128" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+        <div class="section-head">Top artistas</div>
+        <div class="music-top" style="margin-bottom:8px;"><div class="music-icon">🎤</div><div class="music-title" style="flex:1;">Bad Bunny</div><div class="music-rank">#1</div></div>
+        <div class="music-top" style="margin-bottom:8px;"><div class="music-icon">🎤</div><div class="music-title" style="flex:1;">Feid</div><div class="music-rank">#2</div></div>
+        <div class="music-top" style="margin-bottom:8px;"><div class="music-icon">🎤</div><div class="music-title" style="flex:1;">Edita en Perfil</div><div class="music-rank">#3</div></div>
+        <div class="section-head">Géneros favoritos</div>
+        <div class="genre-grid">
+          <div class="genre-card"><div class="genre-name">Urbano</div><div class="genre-pct">42%</div><div class="progress-bar"><div class="progress-fill" style="width:42%"></div></div></div>
+          <div class="genre-card"><div class="genre-name">Trap</div><div class="genre-pct">28%</div><div class="progress-bar"><div class="progress-fill" style="width:28%"></div></div></div>
+          <div class="genre-card"><div class="genre-name">Electrónica</div><div class="genre-pct">18%</div><div class="progress-bar"><div class="progress-fill" style="width:18%"></div></div></div>
+          <div class="genre-card"><div class="genre-name">Lo-fi</div><div class="genre-pct">12%</div><div class="progress-bar"><div class="progress-fill" style="width:12%"></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================== PAGE: AMIGOS ======================== -->
+    <div class="screen-page" id="page-social">
+      <div class="page-inner">
+        <div class="social-stats">
+          <div class="social-stat"><div class="social-stat-num">134</div><div class="social-stat-label">Amigos</div></div>
+          <div class="social-stat"><div class="social-stat-num">2.4K</div><div class="social-stat-label">Seguidores</div></div>
+          <div class="social-stat"><div class="social-stat-num">3</div><div class="social-stat-label">Clanes</div></div>
+        </div>
+        <div class="section-head">Online ahora</div>
+        <div class="card" style="padding:4px 12px;">
+          <div class="friend-item"><div class="friend-av">K<div class="dot-status online"></div></div><div class="friend-info"><div class="friend-name">@nx_kira</div><div class="friend-game">🎯 Jugando Valorant</div></div><span class="badge green">online</span></div>
+          <div class="friend-item"><div class="friend-av">Z<div class="dot-status online"></div></div><div class="friend-info"><div class="friend-name">@zeph_plays</div><div class="friend-game">🔫 En lobby CS2</div></div><span class="badge green">online</span></div>
+          <div class="friend-item"><div class="friend-av">R<div class="dot-status away"></div></div><div class="friend-info"><div class="friend-name">@rex_gg</div><div class="friend-game">Ausente · hace 20 min</div></div><span class="badge yellow">ausente</span></div>
+          <div class="friend-item"><div class="friend-av">M<div class="dot-status offline"></div></div><div class="friend-info"><div class="friend-name">@mxrk</div><div class="friend-game">Offline · hace 3 h</div></div><span class="badge">offline</span></div>
+        </div>
+        <div class="section-head">Dúos frecuentes</div>
+        <div class="card-sm row"><div style="display:flex;align-items:center;gap:10px;"><div class="icon-box" style="font-size:14px;font-weight:700;">VK</div><div><div style="font-size:12px;color:var(--ink);">Vex & nx_kira</div><div style="font-size:10px;color:var(--muted);">47 partidas · Valorant</div></div></div><span class="badge green">Dúo</span></div>
+        <div class="card-sm row"><div style="display:flex;align-items:center;gap:10px;"><div class="icon-box" style="font-size:14px;font-weight:700;">VZ</div><div><div style="font-size:12px;color:var(--ink);">Vex & zeph</div><div style="font-size:10px;color:var(--muted);">28 partidas · CS2</div></div></div><span class="badge">Dúo</span></div>
+        <div class="section-head">Clanes</div>
+        <div class="clan-card"><div class="clan-icon">⚔️</div><div><div class="clan-name">APEX SQUAD</div><div class="clan-meta">34 miembros · Valorant · CS2</div><div class="clan-role"><span class="badge yellow">FUNDADOR</span></div></div></div>
+        <div class="clan-card"><div class="clan-icon">🧱</div><div><div class="clan-name">RBX CREW</div><div class="clan-meta">18 miembros · Roblox</div><div class="clan-role"><span class="badge">MIEMBRO</span></div></div></div>
+      </div>
+    </div>
+
+    <!-- ======================== PAGE: PERFIL (editable) ======================== -->
+    <div class="screen-page" id="page-profile">
+      <div class="page-inner">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:16px;">
+          <div class="avatar-hero" id="profileAvatarWrap" style="cursor:pointer;" onclick="document.getElementById('avatarInput').click()">
+            <img id="profileAvatarImg" src="" style="display:none;position:absolute;width:100%;height:100%;object-fit:cover;border-radius:50%;"/>
+            <span id="profileAvatarLetter">V</span>
+            <div style="position:absolute;bottom:0;right:0;width:22px;height:22px;background:var(--s2);border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            </div>
+          </div>
+          <input type="file" id="avatarInput" accept="image/*" style="display:none"/>
+          <span style="font-size:10px;color:var(--muted);letter-spacing:.08em;">TOCA PARA CAMBIAR FOTO</span>
+        </div>
+        <div class="card" style="padding:10px 14px;margin-bottom:10px;">
+          <div style="font-size:9px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;margin-bottom:8px;">Identidad</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div><div style="font-size:9px;color:var(--muted);margin-bottom:4px;">NOMBRE / TAG</div><input id="editName" type="text" placeholder="Tu nombre" maxlength="20" style="width:100%;background:var(--s2);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13px;color:var(--ink);font-family:'Geist',sans-serif;outline:none;"/></div>
+            <div><div style="font-size:9px;color:var(--muted);margin-bottom:4px;">BIO</div><textarea id="editBio" placeholder="Cuéntate en una línea..." maxlength="80" rows="2" style="width:100%;background:var(--s2);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12px;color:var(--ink);font-family:'Geist',sans-serif;outline:none;resize:none;"></textarea></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <div><div style="font-size:9px;color:var(--muted);margin-bottom:4px;">PAÍS</div><input id="editCountry" type="text" placeholder="🇵🇪 Perú" maxlength="20" style="width:100%;background:var(--s2);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12px;color:var(--ink);font-family:'Geist',sans-serif;outline:none;"/></div>
+              <div><div style="font-size:9px;color:var(--muted);margin-bottom:4px;">ESTADO</div>
+                <select id="editStatus" style="width:100%;background:var(--s2);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12px;color:var(--ink);font-family:'Geist',sans-serif;outline:none;">
+                  <option value="online">🟢 Jugando</option>
+                  <option value="away">🟡 Ausente</option>
+                  <option value="offline">⚫ Offline</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="section-head">Juegos favoritos</div>
+        <div class="card" style="padding:12px 14px;">
+          <div id="gamesEditList"></div>
+          <button onclick="openAddGame()" style="width:100%;margin-top:10px;background:var(--s2);border:1px dashed var(--line2);border-radius:10px;padding:9px;font-size:11px;color:var(--muted);font-family:'Geist',sans-serif;cursor:pointer;letter-spacing:.06em;">+ AÑADIR JUEGO</button>
+        </div>
+        <div class="section-head">Música favorita</div>
+        <div class="card" style="padding:12px 14px;">
+          <div id="musicEditList"></div>
+          <button onclick="openAddMusic()" style="width:100%;margin-top:10px;background:var(--s2);border:1px dashed var(--line2);border-radius:10px;padding:9px;font-size:11px;color:var(--muted);font-family:'Geist',sans-serif;cursor:pointer;letter-spacing:.06em;">+ AÑADIR CANCIÓN / ARTISTA</button>
+        </div>
+        <button onclick="saveProfile()" style="width:100%;margin-top:14px;background:var(--accent);border:none;border-radius:12px;padding:13px;font-size:12px;font-weight:700;color:var(--s0);font-family:'Geist',sans-serif;cursor:pointer;letter-spacing:.1em;">GUARDAR PERFIL</button>
+        <div class="section-head">Stats totales</div>
+        <div class="card" style="padding:4px 14px;">
+          <div class="profile-field"><span class="field-key">Horas totales</span><span class="field-val">724h</span></div>
+          <div class="profile-field"><span class="field-key">Juegos jugados</span><span class="field-val">18</span></div>
+          <div class="profile-field"><span class="field-key">Logros</span><span class="field-val">47</span></div>
+          <div class="profile-field"><span class="field-key">Mejor racha</span><span class="field-val">21 días</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: Añadir juego -->
+    <div id="modalGame" style="display:none;position:absolute;inset:0;z-index:50;background:rgba(0,0,0,.7);align-items:flex-end;">
+      <div style="background:var(--s1);border-radius:24px 24px 0 0;padding:20px 20px 30px;width:100%;border-top:1px solid var(--line);">
+        <div style="width:40px;height:4px;background:var(--line2);border-radius:2px;margin:0 auto 18px;"></div>
+        <div style="font-size:11px;letter-spacing:.18em;color:var(--muted);margin-bottom:14px;">AÑADIR JUEGO</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <input id="gName" type="text" placeholder="Nombre del juego (ej: Valorant)" maxlength="30" style="background:var(--s2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--ink);font-family:'Geist',sans-serif;outline:none;width:100%;"/>
+          <input id="gEmoji" type="text" placeholder="Emoji (ej: 🎯)" maxlength="4" style="background:var(--s2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--ink);font-family:'Geist',sans-serif;outline:none;width:100%;"/>
+          <select id="gGenre" style="background:var(--s2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--ink);font-family:'Geist',sans-serif;outline:none;width:100%;">
+            <option value="">Tipo / Género</option>
+            <option>FPS</option><option>Battle Royale</option><option>RPG</option><option>Sandbox</option><option>Estrategia</option><option>Deportes</option><option>Acción</option><option>Aventura</option><option>Terror</option><option>Otro</option>
+          </select>
+          <input id="gHours" type="number" placeholder="Horas jugadas" min="0" max="9999" style="background:var(--s2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--ink);font-family:'Geist',sans-serif;outline:none;width:100%;"/>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;">
+          <button onclick="closeModal('modalGame')" style="background:var(--s2);border:1px solid var(--line);border-radius:10px;padding:11px;font-size:12px;color:var(--muted);font-family:'Geist',sans-serif;cursor:pointer;">Cancelar</button>
+          <button onclick="addGame()" style="background:var(--accent);border:none;border-radius:10px;padding:11px;font-size:12px;font-weight:700;color:var(--s0);font-family:'Geist',sans-serif;cursor:pointer;">Añadir</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: Añadir música -->
+    <div id="modalMusic" style="display:none;position:absolute;inset:0;z-index:50;background:rgba(0,0,0,.7);align-items:flex-end;">
+      <div style="background:var(--s1);border-radius:24px 24px 0 0;padding:20px 20px 30px;width:100%;border-top:1px solid var(--line);">
+        <div style="width:40px;height:4px;background:var(--line2);border-radius:2px;margin:0 auto 18px;"></div>
+        <div style="font-size:11px;letter-spacing:.18em;color:var(--muted);margin-bottom:14px;">AÑADIR MÚSICA</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <input id="mTitle" type="text" placeholder="Canción o artista" maxlength="40" style="background:var(--s2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--ink);font-family:'Geist',sans-serif;outline:none;width:100%;"/>
+          <input id="mArtist" type="text" placeholder="Artista (si escribiste canción)" maxlength="30" style="background:var(--s2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--ink);font-family:'Geist',sans-serif;outline:none;width:100%;"/>
+          <select id="mGenre" style="background:var(--s2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--ink);font-family:'Geist',sans-serif;outline:none;width:100%;">
+            <option value="">Género musical</option>
+            <option>Urbano / Reggaeton</option><option>Trap</option><option>Hip-Hop</option><option>Electrónica</option><option>Lo-fi</option><option>Rock</option><option>Pop</option><option>Metal</option><option>Indie</option><option>Otro</option>
+          </select>
+          <input id="mUrl" type="url" placeholder="Link Spotify / YouTube (opcional)" style="background:var(--s2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--ink);font-family:'Geist',sans-serif;outline:none;width:100%;"/>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;">
+          <button onclick="closeModal('modalMusic')" style="background:var(--s2);border:1px solid var(--line);border-radius:10px;padding:11px;font-size:12px;color:var(--muted);font-family:'Geist',sans-serif;cursor:pointer;">Cancelar</button>
+          <button onclick="addMusic()" style="background:var(--accent);border:none;border-radius:10px;padding:11px;font-size:12px;font-weight:700;color:var(--s0);font-family:'Geist',sans-serif;cursor:pointer;">Añadir</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" style="position:absolute;bottom:90px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--s1);border:1px solid var(--line);border-radius:20px;padding:8px 16px;font-size:11px;color:var(--ink);white-space:nowrap;opacity:0;transition:.3s;pointer-events:none;z-index:60;">✓ Guardado</div>
+
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav">
+      <button class="nav-btn active" data-page="home"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span><div class="nav-dot"></div></button>
+      <button class="nav-btn" data-page="games"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="3"/><path d="M7 12h4M9 10v4"/><circle cx="16" cy="11" r=".7" fill="currentColor"/><circle cx="16" cy="13" r=".7" fill="currentColor"/></svg><span>Juegos</span><div class="nav-dot"></div></button>
+      <button class="nav-btn" data-page="clips"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg><span>Clips</span><div class="nav-dot"></div></button>
+      <button class="nav-btn" data-page="match"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Match</span><div class="nav-dot"></div></button>
+      <button class="nav-btn" data-page="music"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span>Música</span><div class="nav-dot"></div></button>
+      <button class="nav-btn" data-page="social"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="23" y1="11" x2="17" y2="11"/><line x1="20" y1="8" x2="20" y2="14"/></svg><span>Social</span><div class="nav-dot"></div></button>
+      <button class="nav-btn" data-page="profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg><span>Perfil</span><div class="nav-dot"></div></button>
+    </nav>
+
+    <div class="home"></div>
+  </div>
+</div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEX OS · Acceso</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/shared.css">
+<style>
+.auth-wrap{
+  min-height:calc(100vh - 64px);
+  display:flex;align-items:center;justify-content:center;
+  padding:40px 20px;
+}
+.auth-split{
+  display:grid;grid-template-columns:1fr 1fr;
+  max-width:900px;width:100%;gap:60px;align-items:center;
+}
+@media(max-width:700px){
+  .auth-split{grid-template-columns:1fr;}
+  .auth-left{display:none;}
+}
+.auth-left{}
+.auth-left h2{font-size:clamp(28px,5vw,40px);font-weight:800;letter-spacing:-.02em;line-height:1.2;color:var(--ink);margin-bottom:12px;}
+.auth-left p{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:28px;}
+.auth-perks{display:flex;flex-direction:column;gap:10px;}
+.perk{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--muted);}
+.perk span{font-size:16px;}
+</style>
+</head>
+<body>
+<div class="ambient" id="ambient"></div>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">VEX OS</a>
+  <div class="nav-links">
+    <a href="index.html">Inicio</a>
+    <a href="creators.html">Creadores</a>
+    <a href="rules.html">Reglas</a>
+  </div>
+  <div class="nav-cta">
+    <a href="app.html" class="btn-nav-ghost">Ver demo</a>
+  </div>
+</nav>
+
+<div class="page">
+<div class="auth-wrap">
+  <div class="auth-split">
+
+    <!-- LEFT: copy -->
+    <div class="auth-left">
+      <h2>Tu perfil gamer te espera.</h2>
+      <p>Crea tu identidad digital, conecta tus juegos y encuentra jugadores compatibles.</p>
+      <div class="auth-perks">
+        <div class="perk"><span>🎮</span> Perfil con juegos, horas y rachas</div>
+        <div class="perk"><span>🎵</span> Música y artistas favoritos</div>
+        <div class="perk"><span>🤝</span> Match con jugadores de tu región</div>
+        <div class="perk"><span>🎬</span> Galería de clips y highlights</div>
+        <div class="perk"><span>🔒</span> 100% gratuito, sin anuncios</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: form -->
+    <div>
+      <div class="form-card">
+
+        <div class="form-tabs">
+          <button class="form-tab active" id="tab-login" onclick="switchTab('login')">ENTRAR</button>
+          <button class="form-tab" id="tab-register" onclick="switchTab('register')">REGISTRARSE</button>
+        </div>
+
+        <!-- LOGIN FORM -->
+        <div id="form-login">
+          <div class="form-field">
+            <label>Username</label>
+            <input type="text" id="l-user" placeholder="tu_username" autocomplete="username"/>
+          </div>
+          <div class="form-field">
+            <label>Contraseña</label>
+            <input type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password"/>
+          </div>
+          <div class="form-error" id="l-err"></div>
+          <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:4px;" onclick="handleLogin()">
+            ENTRAR →
+          </button>
+        </div>
+
+        <!-- REGISTER FORM -->
+        <div id="form-register" style="display:none;">
+          <div class="form-field">
+            <label>Username</label>
+            <input type="text" id="r-user" placeholder="solo_letras_y_numeros"/>
+          </div>
+          <div class="form-field">
+            <label>Contraseña</label>
+            <input type="password" id="r-pass" placeholder="Mínimo 6 caracteres"/>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div class="form-field">
+              <label>Edad</label>
+              <input type="number" id="r-age" placeholder="Tu edad" min="1" max="99"/>
+            </div>
+            <div class="form-field">
+              <label>País</label>
+              <select id="r-country">
+                <option value="">País...</option>
+                <option>🇵🇪 Perú</option><option>🇲🇽 México</option>
+                <option>🇦🇷 Argentina</option><option>🇨🇴 Colombia</option>
+                <option>🇨🇱 Chile</option><option>🇺🇾 Uruguay</option>
+                <option>🇻🇪 Venezuela</option><option>🇧🇷 Brasil</option>
+                <option>🇪🇸 España</option><option>🇺🇸 USA</option>
+                <option>🌍 Otro</option>
+              </select>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div class="form-field">
+              <label>Idioma</label>
+              <select id="r-lang">
+                <option value="ES">Español</option>
+                <option value="EN">English</option>
+                <option value="PT">Português</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>Horario</label>
+              <select id="r-schedule">
+                <option value="Mañana">Mañana</option>
+                <option value="Tarde" selected>Tarde</option>
+                <option value="Noche">Noche</option>
+                <option value="Madrugada">Madrugada</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-error" id="r-err"></div>
+          <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:4px;" onclick="handleRegister()">
+            CREAR CUENTA →
+          </button>
+          <div class="form-note" style="margin-top:14px;">
+            <b>Seguridad:</b> Todo se guarda localmente en tu dispositivo. Debes tener al menos <b>14 años</b> para registrarte.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-logo">VEX OS</div>
+  <div class="footer-links">
+    <a href="index.html">Inicio</a>
+    <a href="rules.html">Reglas</a>
+  </div>
+  <div class="footer-copy">© 2025 VEX OS</div>
+</footer>
+
+</div>
+
+<script src="js/auth.js"></script>
+<script>
+spawnParticles();
+
+// If already logged in go straight to app
+if(isLoggedIn()) window.location.href='app.html';
+
+// Check URL hash for #register
+if(window.location.hash==='#register') switchTab('register');
+
+function switchTab(tab){
+  document.getElementById('tab-login').classList.toggle('active', tab==='login');
+  document.getElementById('tab-register').classList.toggle('active', tab==='register');
+  document.getElementById('form-login').style.display  = tab==='login'    ? '' : 'none';
+  document.getElementById('form-register').style.display = tab==='register' ? '' : 'none';
+}
+
+function handleLogin(){
+  const ok=doLogin(
+    document.getElementById('l-user').value,
+    document.getElementById('l-pass').value,
+    document.getElementById('l-err')
+  );
+  if(ok) window.location.href='app.html';
+}
+
+function handleRegister(){
+  const ok=doRegister({
+    username: document.getElementById('r-user').value,
+    pass:     document.getElementById('r-pass').value,
+    age:      document.getElementById('r-age').value,
+    country:  document.getElementById('r-country').value,
+    lang:     document.getElementById('r-lang').value,
+    schedule: document.getElementById('r-schedule').value,
+  }, document.getElementById('r-err'));
+  if(ok){
+    // First time → setup, else → app
+    const p=JSON.parse(localStorage.getItem('vex_profile')||'{}');
+    window.location.href = p.setupDone ? 'app.html' : 'setup.html';
+  }
+}
+
+// Enter key
+document.addEventListener('keydown', e=>{
+  if(e.key!=='Enter') return;
+  if(document.getElementById('form-login').style.display!=='none') handleLogin();
+  else handleRegister();
+});
+</script>
+</body>
+</html>

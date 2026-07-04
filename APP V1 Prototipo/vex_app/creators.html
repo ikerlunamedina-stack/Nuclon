@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEX OS · Creadores</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/shared.css">
+<style>
+.creator-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px;}
+@media(max-width:700px){.creator-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:440px){.creator-grid{grid-template-columns:1fr;}}
+.creator-card{
+  background:var(--s1);border:1px solid var(--line);
+  border-radius:18px;padding:24px;text-align:center;
+  transition:.2s;
+}
+.creator-card:hover{border-color:var(--line2);transform:translateY(-2px);}
+.creator-av{
+  width:72px;height:72px;border-radius:50%;
+  background:var(--s2);border:1.5px solid var(--line);
+  margin:0 auto 14px;display:flex;align-items:center;
+  justify-content:center;font-size:28px;
+}
+.creator-name{font-size:15px;font-weight:700;color:var(--ink);letter-spacing:.06em;}
+.creator-role{font-size:11px;color:var(--muted);margin-top:4px;letter-spacing:.08em;text-transform:uppercase;}
+.creator-bio{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.6;}
+.creator-links{display:flex;justify-content:center;gap:8px;margin-top:14px;}
+.creator-link{
+  padding:5px 12px;border-radius:20px;
+  background:var(--s2);border:1px solid var(--line);
+  font-size:10px;color:var(--muted);text-decoration:none;
+  transition:.2s;letter-spacing:.06em;
+}
+.creator-link:hover{border-color:var(--accent);color:var(--ink);}
+
+.mission{
+  background:var(--s1);border:1px solid var(--line);
+  border-radius:20px;padding:40px;margin-top:60px;
+}
+.mission h3{font-size:22px;font-weight:700;color:var(--ink);margin-bottom:12px;}
+.mission p{font-size:14px;color:var(--muted);line-height:1.8;max-width:640px;}
+</style>
+</head>
+<body>
+<div class="ambient" id="ambient"></div>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">VEX OS</a>
+  <div class="nav-links">
+    <a href="index.html">Inicio</a>
+    <a href="creators.html" class="active">Creadores</a>
+    <a href="rules.html">Reglas</a>
+    <a href="app.html">App</a>
+  </div>
+  <div class="nav-cta">
+    <a href="login.html" class="btn-nav-ghost" id="navLoginBtn">Entrar</a>
+    <a href="login.html#register" class="btn-nav-solid" id="navRegBtn">Registrarse</a>
+  </div>
+</nav>
+
+<div class="page">
+<section class="section">
+  <div class="section-label">Equipo</div>
+  <div class="section-title">Hecho por gamers,<br>para gamers.</div>
+  <div class="section-sub">VEX OS nació de querer un perfil digital que realmente represente quién eres como jugador. Sin plantillas genéricas.</div>
+
+  <div class="creator-grid">
+    <div class="creator-card">
+      <div class="creator-av">🎮</div>
+      <div class="creator-name">VEX</div>
+      <div class="creator-role">Fundador · Diseño</div>
+      <div class="creator-bio">Gamer, creador de contenido y la mente detrás de VEX OS. Lleva años construyendo comunidades de gaming.</div>
+      <div class="creator-links">
+        <a href="https://kick.com/qv3x" target="_blank" class="creator-link">Kick</a>
+        <a href="https://discord.gg/yXXG7jmvq4" target="_blank" class="creator-link">Discord</a>
+        <a href="https://www.tiktok.com/@vexi.p" target="_blank" class="creator-link">TikTok</a>
+      </div>
+    </div>
+    <!-- Añade más creadores aquí según el equipo crezca -->
+    <div class="creator-card" style="opacity:.4;pointer-events:none;">
+      <div class="creator-av">➕</div>
+      <div class="creator-name">Próximamente</div>
+      <div class="creator-role">Colaborador</div>
+      <div class="creator-bio">¿Quieres formar parte del equipo? Únete al Discord y cuéntanos.</div>
+    </div>
+    <div class="creator-card" style="opacity:.4;pointer-events:none;">
+      <div class="creator-av">➕</div>
+      <div class="creator-name">Próximamente</div>
+      <div class="creator-role">Colaborador</div>
+      <div class="creator-bio">¿Quieres formar parte del equipo? Únete al Discord y cuéntanos.</div>
+    </div>
+  </div>
+
+  <div class="mission">
+    <h3>Nuestra misión</h3>
+    <p>Queremos que cada gamer tenga una identidad digital propia — no un link en bio genérico, sino un perfil que diga quién eres, qué juegas, qué escuchas y cómo te pueden encontrar. VEX OS es eso: un sistema operativo personal para jugadores.</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-logo">VEX OS</div>
+  <div class="footer-links">
+    <a href="index.html">Inicio</a>
+    <a href="rules.html">Reglas</a>
+    <a href="login.html">Entrar</a>
+  </div>
+  <div class="footer-copy">© 2025 VEX OS</div>
+</footer>
+</div>
+
+<script src="js/auth.js"></script>
+<script>
+spawnParticles();
+if(isLoggedIn()){
+  document.getElementById('navLoginBtn').textContent='Mi perfil';
+  document.getElementById('navLoginBtn').href='app.html';
+  document.getElementById('navRegBtn').style.display='none';
+}
+</script>
+</body>
+</html>

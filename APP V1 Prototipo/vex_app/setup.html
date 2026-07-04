@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEX OS · Setup</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;scrollbar-width:none;}
+*::-webkit-scrollbar{display:none;}
+:root{
+  --bg:#090909;--s0:#0b0b0f;--s1:#111116;--s2:#18181f;
+  --line:#24242b;--line2:#2e2e38;
+  --ink:#F2F0EB;--muted:#6a6a72;--muted2:#3e3e47;
+  --accent:#D9D4C7;--green:#3d9970;--yellow:#c8a84b;
+}
+
+body{
+  background:var(--bg);
+  min-height:100vh;width:100vw;
+  font-family:'Geist',-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overflow:hidden;color:var(--ink);
+}
+
+/* Fondo partículas */
+.ambient{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+.speck{position:absolute;bottom:-4px;width:1.5px;height:1.5px;border-radius:50%;
+  background:rgba(242,240,235,0.15);animation:drift linear infinite;}
+@keyframes drift{
+  0%{transform:translateY(0) translateX(0);opacity:0;}
+  10%{opacity:1;}90%{opacity:1;}
+  100%{transform:translateY(-110vh) translateX(var(--dx,20px));opacity:0;}
+}
+
+/* Progress bar fija arriba */
+.progress-wrap{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:none;gap:5px;padding:18px 32px 0;
+  background:linear-gradient(to bottom, var(--bg) 50%, transparent);
+  pointer-events:none;
+}
+.progress-wrap.visible{display:flex;}
+.progress-seg{flex:1;height:3px;border-radius:2px;background:var(--line);overflow:hidden;}
+.progress-seg .fill{height:100%;border-radius:2px;background:var(--accent);width:0%;transition:width .4s ease;}
+
+/* Steps */
+.step{
+  position:fixed;inset:0;
+  overflow-y:auto;
+  opacity:0;pointer-events:none;
+  transform:translateX(32px);
+  transition:opacity .32s ease, transform .32s ease;
+  z-index:1;
+}
+.step.active{opacity:1;pointer-events:all;transform:translateX(0);}
+.step.out{opacity:0;transform:translateX(-32px);}
+
+/* Content wrapper centrado */
+.step-inner{
+  min-height:100vh;
+  max-width:540px;
+  margin:0 auto;
+  padding:64px 32px 48px;
+  display:flex;flex-direction:column;
+}
+
+/* Labels y títulos */
+.step-tag{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.step-title{font-size:clamp(26px,5vw,36px);font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1.15;margin-bottom:8px;}
+.step-sub{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:28px;}
+
+/* Inputs */
+.field{margin-bottom:16px;}
+.field label{display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;}
+.field input,.field textarea,.field select{
+  width:100%;background:var(--s1);border:1px solid var(--line);
+  border-radius:12px;padding:14px 16px;
+  font-size:15px;color:var(--ink);font-family:'Geist',sans-serif;outline:none;
+  transition:border-color .2s;
+}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--line2);}
+.field textarea{resize:none;}
+.field select{appearance:none;cursor:pointer;}
+.field select option{background:var(--s1);}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+
+/* Avatar upload */
+.avatar-upload{
+  width:110px;height:110px;border-radius:50%;
+  background:var(--s1);border:1.5px dashed var(--line2);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  cursor:pointer;margin:0 auto 24px;position:relative;overflow:hidden;transition:.2s;
+}
+.avatar-upload:hover{border-color:var(--accent);}
+.avatar-upload img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;border-radius:50%;}
+.avatar-icon{font-size:32px;margin-bottom:4px;}
+.avatar-lbl{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+
+/* Games grid */
+.games-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px;}
+@media(max-width:380px){.games-grid{grid-template-columns:repeat(3,1fr);}}
+.game-tile{
+  background:var(--s1);border:1px solid var(--line);border-radius:14px;
+  padding:12px 6px;display:flex;flex-direction:column;align-items:center;gap:5px;
+  cursor:pointer;transition:.18s;
+}
+.game-tile:hover{border-color:var(--line2);}
+.game-tile.sel{border-color:var(--accent);background:var(--s2);}
+.gt-emoji{font-size:24px;}
+.gt-name{font-size:10px;color:var(--muted);text-align:center;}
+.gt-check{width:14px;height:14px;border-radius:50%;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;font-size:8px;transition:.18s;}
+.game-tile.sel .gt-check{background:var(--accent);border-color:var(--accent);color:var(--s0);}
+.game-tile.sel .gt-name{color:var(--ink);}
+
+/* Genre chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+.chip{padding:8px 16px;border-radius:20px;background:var(--s1);border:1px solid var(--line);
+  font-size:13px;color:var(--muted);cursor:pointer;transition:.18s;}
+.chip:hover{border-color:var(--line2);}
+.chip.sel{background:var(--s2);border-color:var(--accent);color:var(--ink);}
+
+/* Platform grid */
+.platform-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px;}
+.platform-tile{
+  background:var(--s1);border:1px solid var(--line);border-radius:14px;
+  padding:14px 10px;display:flex;flex-direction:column;align-items:center;gap:6px;
+  cursor:pointer;transition:.18s;
+}
+.platform-tile:hover{border-color:var(--line2);}
+.platform-tile.sel{border-color:var(--accent);background:var(--s2);}
+.pt-icon{font-size:22px;}
+.pt-name{font-size:11px;color:var(--muted);}
+.platform-tile.sel .pt-name{color:var(--ink);}
+
+/* Status tiles */
+.status-tiles{display:flex;gap:8px;margin-bottom:20px;}
+.status-tile{
+  flex:1;background:var(--s1);border:1px solid var(--line);border-radius:14px;
+  padding:14px 10px;display:flex;flex-direction:column;align-items:center;gap:8px;
+  cursor:pointer;transition:.18s;
+}
+.status-tile:hover{border-color:var(--line2);}
+.status-tile.sel{border-color:var(--accent);background:var(--s2);}
+.sdot{width:10px;height:10px;border-radius:50%;}
+.slbl{font-size:11px;color:var(--muted);}
+.status-tile.sel .slbl{color:var(--ink);}
+
+/* Buttons */
+.btn-primary{
+  width:100%;padding:16px;background:var(--accent);border:none;
+  border-radius:14px;font-size:14px;font-weight:700;letter-spacing:.1em;
+  color:var(--s0);font-family:'Geist',sans-serif;cursor:pointer;transition:.15s;
+}
+.btn-primary:hover{opacity:.9;}
+.btn-primary:active{transform:scale(.98);}
+.btn-secondary{
+  width:100%;padding:14px;background:transparent;border:1px solid var(--line);
+  border-radius:14px;font-size:13px;color:var(--muted);font-family:'Geist',sans-serif;
+  cursor:pointer;margin-top:10px;transition:.2s;
+}
+.btn-secondary:hover{border-color:var(--line2);color:var(--ink);}
+.btn-row{display:flex;gap:10px;margin-top:auto;padding-top:20px;}
+.btn-back{
+  width:48px;height:48px;flex-shrink:0;background:var(--s1);border:1px solid var(--line);
+  border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s;
+}
+.btn-back:hover{border-color:var(--line2);}
+.btn-next{
+  flex:1;padding:14px;background:var(--accent);border:none;border-radius:12px;
+  font-size:14px;font-weight:700;letter-spacing:.08em;color:var(--s0);
+  font-family:'Geist',sans-serif;cursor:pointer;transition:.15s;
+}
+.btn-next:hover{opacity:.9;}
+
+/* Welcome */
+.welcome-ring{
+  width:100px;height:100px;border-radius:50%;
+  border:1.5px solid var(--line2);background:var(--s1);
+  margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:44px;
+  position:relative;
+}
+.welcome-ring::after{
+  content:'';position:absolute;inset:-8px;border-radius:50%;
+  border:1px dashed var(--line);animation:rotR 10s linear infinite;
+}
+@keyframes rotR{to{transform:rotate(360deg);}}
+.feature-list{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
+.feat-item{
+  display:flex;align-items:center;gap:14px;
+  background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:14px 16px;
+}
+.feat-icon{font-size:20px;flex-shrink:0;}
+.feat-title{font-size:13px;color:var(--ink);font-weight:500;}
+.feat-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+
+/* Done */
+.done-av{
+  width:110px;height:110px;border-radius:50%;margin:0 auto 18px;
+  background:var(--s1);border:2px solid var(--accent);
+  display:flex;align-items:center;justify-content:center;
+  font-size:44px;font-weight:700;overflow:hidden;position:relative;
+}
+.done-av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;}
+.done-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-bottom:22px;}
+.dtag{padding:5px 14px;border-radius:20px;background:var(--s1);border:1px solid var(--line);font-size:12px;color:var(--muted);}
+.done-summary{background:var(--s1);border:1px solid var(--line);border-radius:16px;padding:4px 16px;margin-bottom:24px;}
+.sum-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--line);}
+.sum-row:last-child{border-bottom:none;}
+.sum-key{font-size:11px;color:var(--muted);}
+.sum-val{font-size:12px;color:var(--ink);font-weight:500;text-align:right;max-width:58%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+/* Toast */
+#toast{
+  position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(10px);
+  background:var(--s1);border:1px solid var(--line);border-radius:20px;
+  padding:9px 18px;font-size:12px;color:var(--ink);white-space:nowrap;
+  opacity:0;transition:.3s;pointer-events:none;z-index:100;
+}
+</style>
+</head>
+<body>
+<div class="ambient" id="ambient"></div>
+
+<!-- Progress bar -->
+<div class="progress-wrap" id="progressWrap">
+  <div class="progress-seg"><div class="fill" id="p1"></div></div>
+  <div class="progress-seg"><div class="fill" id="p2"></div></div>
+  <div class="progress-seg"><div class="fill" id="p3"></div></div>
+  <div class="progress-seg"><div class="fill" id="p4"></div></div>
+  <div class="progress-seg"><div class="fill" id="p5"></div></div>
+  <div class="progress-seg"><div class="fill" id="p6"></div></div>
+</div>
+
+<!-- ======== STEP 0: BIENVENIDA ======== -->
+<div class="step active" id="step-0">
+  <div class="step-inner" style="justify-content:center;text-align:center;">
+    <div class="welcome-ring">🎮</div>
+    <div style="font-size:clamp(32px,7vw,48px);font-weight:800;letter-spacing:.1em;margin-bottom:8px;">VEX OS</div>
+    <div style="font-size:13px;color:var(--muted);letter-spacing:.2em;text-transform:uppercase;margin-bottom:36px;">Tu identidad gamer</div>
+    <div class="feature-list" style="text-align:left;">
+      <div class="feat-item"><div class="feat-icon">👤</div><div><div class="feat-title">Perfil gamer completo</div><div class="feat-sub">Nombre, país, estado, juegos favoritos</div></div></div>
+      <div class="feat-item"><div class="feat-icon">🎵</div><div><div class="feat-title">Música y playlists</div><div class="feat-sub">Lo que suena mientras juegas</div></div></div>
+      <div class="feat-item"><div class="feat-icon">🎯</div><div><div class="feat-title">Juegos y estadísticas</div><div class="feat-sub">Tu biblioteca personal con horas y rachas</div></div></div>
+      <div class="feat-item"><div class="feat-icon">👥</div><div><div class="feat-title">Match con jugadores</div><div class="feat-sub">Encuentra tu dúo o equipo perfecto</div></div></div>
+    </div>
+    <button class="btn-primary" onclick="goTo(1)">EMPEZAR SETUP →</button>
+    <button class="btn-secondary" onclick="skipSetup()">Ya tengo perfil · Entrar</button>
+  </div>
+</div>
+
+<!-- ======== STEP 1: IDENTIDAD ======== -->
+<div class="step" id="step-1">
+  <div class="step-inner">
+    <div class="step-tag">Paso 1 de 6 · Identidad</div>
+    <div class="step-title">¿Cómo te llaman?</div>
+    <div class="step-sub">Elige tu nombre y foto. Esto es lo primero que verán otros jugadores.</div>
+
+    <div class="avatar-upload" id="avatarUpload" onclick="document.getElementById('avatarFile').click()">
+      <img id="avatarPreview"/>
+      <div class="avatar-icon" id="avatarIcon">📷</div>
+      <div class="avatar-lbl" id="avatarLbl">Foto de perfil</div>
+    </div>
+    <input type="file" id="avatarFile" accept="image/*" style="display:none"/>
+
+    <div class="field"><label>Nombre / Tag</label><input type="text" id="inp-name" placeholder="Ej: VEX, Kirax, NightFox..." maxlength="20"/></div>
+    <div class="field"><label>Username único</label><input type="text" id="inp-username" placeholder="@tu_username (sin espacios)" maxlength="20"/></div>
+    <div class="field"><label>Bio (opcional)</label><textarea id="inp-bio" placeholder="Una frase que te defina..." maxlength="80" rows="2"></textarea></div>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="goTo(0)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+      <button class="btn-next" onclick="validateStep1()">SIGUIENTE →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======== STEP 2: UBICACIÓN ======== -->
+<div class="step" id="step-2">
+  <div class="step-inner">
+    <div class="step-tag">Paso 2 de 6 · Ubicación & Estado</div>
+    <div class="step-title">¿Desde dónde juegas?</div>
+    <div class="step-sub">Tu región conecta con jugadores cercanos con horario similar.</div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>País</label>
+        <select id="inp-country">
+          <option value="">País...</option>
+          <option>🇵🇪 Perú</option><option>🇲🇽 México</option><option>🇦🇷 Argentina</option>
+          <option>🇨🇴 Colombia</option><option>🇨🇱 Chile</option><option>🇺🇾 Uruguay</option>
+          <option>🇻🇪 Venezuela</option><option>🇧🇷 Brasil</option><option>🇪🇸 España</option>
+          <option>🇺🇸 USA</option><option>🌍 Otro</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Idioma</label>
+        <select id="inp-lang">
+          <option value="ES">🗣 Español</option>
+          <option value="EN">🗣 English</option>
+          <option value="PT">🗣 Português</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Horario de juego</label>
+      <select id="inp-schedule">
+        <option value="Mañana">🌅 Mañana (6am – 12pm)</option>
+        <option value="Tarde" selected>🌤 Tarde (12pm – 7pm)</option>
+        <option value="Noche">🌙 Noche (7pm – 2am)</option>
+        <option value="Madrugada">🦉 Madrugada (2am+)</option>
+      </select>
+    </div>
+
+    <div class="field"><label>Estado actual</label></div>
+    <div class="status-tiles">
+      <div class="status-tile sel" data-s="online" onclick="selStatus(this)">
+        <div class="sdot" style="background:#3d9970;box-shadow:0 0 6px rgba(61,153,112,.5);"></div>
+        <div class="slbl">🎮 Jugando</div>
+      </div>
+      <div class="status-tile" data-s="away" onclick="selStatus(this)">
+        <div class="sdot" style="background:#c8a84b;"></div>
+        <div class="slbl">🟡 Ausente</div>
+      </div>
+      <div class="status-tile" data-s="offline" onclick="selStatus(this)">
+        <div class="sdot" style="background:#3e3e47;"></div>
+        <div class="slbl">⚫ Offline</div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="goTo(1)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+      <button class="btn-next" onclick="validateStep2()">SIGUIENTE →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======== STEP 3: PLATAFORMAS ======== -->
+<div class="step" id="step-3">
+  <div class="step-inner">
+    <div class="step-tag">Paso 3 de 6 · Plataformas</div>
+    <div class="step-title">¿En qué juegas?</div>
+    <div class="step-sub">Selecciona todas las plataformas que usas.</div>
+
+    <div class="platform-grid">
+      <div class="platform-tile sel" data-p="PC" onclick="toggle(this)"><div class="pt-icon">🖥</div><div class="pt-name">PC</div></div>
+      <div class="platform-tile" data-p="PS5" onclick="toggle(this)"><div class="pt-icon">🟣</div><div class="pt-name">PlayStation</div></div>
+      <div class="platform-tile" data-p="Xbox" onclick="toggle(this)"><div class="pt-icon">🟩</div><div class="pt-name">Xbox</div></div>
+      <div class="platform-tile" data-p="Nintendo" onclick="toggle(this)"><div class="pt-icon">🔴</div><div class="pt-name">Nintendo</div></div>
+      <div class="platform-tile" data-p="Mobile" onclick="toggle(this)"><div class="pt-icon">📱</div><div class="pt-name">Mobile</div></div>
+      <div class="platform-tile" data-p="VR" onclick="toggle(this)"><div class="pt-icon">🥽</div><div class="pt-name">VR</div></div>
+    </div>
+
+    <div class="field"><label>Género de juego favorito</label></div>
+    <div class="chips">
+      <div class="chip sel" onclick="this.classList.toggle('sel')">FPS</div>
+      <div class="chip" onclick="this.classList.toggle('sel')">Battle Royale</div>
+      <div class="chip" onclick="this.classList.toggle('sel')">RPG</div>
+      <div class="chip" onclick="this.classList.toggle('sel')">Sandbox</div>
+      <div class="chip" onclick="this.classList.toggle('sel')">Estrategia</div>
+      <div class="chip" onclick="this.classList.toggle('sel')">Deportes</div>
+      <div class="chip" onclick="this.classList.toggle('sel')">Aventura</div>
+      <div class="chip" onclick="this.classList.toggle('sel')">Terror</div>
+      <div class="chip" onclick="this.classList.toggle('sel')">MMORPG</div>
+      <div class="chip" onclick="this.classList.toggle('sel')">Indie</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="goTo(2)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+      <button class="btn-next" onclick="goTo(4)">SIGUIENTE →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======== STEP 4: JUEGOS ======== -->
+<div class="step" id="step-4">
+  <div class="step-inner">
+    <div class="step-tag">Paso 4 de 6 · Juegos favoritos</div>
+    <div class="step-title">¿Qué juegas?</div>
+    <div class="step-sub">Toca los que juegas. Puedes añadir más desde tu perfil después.</div>
+
+    <div class="games-grid">
+      <div class="game-tile" data-game="Valorant" onclick="this.classList.toggle('sel')"><div class="gt-emoji">🎯</div><div class="gt-name">Valorant</div><div class="gt-check">✓</div></div>
+      <div class="game-tile" data-game="Roblox" onclick="this.classList.toggle('sel')"><div class="gt-emoji">🧱</div><div class="gt-name">Roblox</div><div class="gt-check">✓</div></div>
+      <div class="game-tile" data-game="CS2" onclick="this.classList.toggle('sel')"><div class="gt-emoji">🔫</div><div class="gt-name">CS2</div><div class="gt-check">✓</div></div>
+      <div class="game-tile" data-game="Fortnite" onclick="this.classList.toggle('sel')"><div class="gt-emoji">🏗</div><div class="gt-name">Fortnite</div><div class="gt-check">✓</div></div>
+      <div class="game-tile" data-game="GTA V" onclick="this.classList.toggle('sel')"><div class="gt-emoji">🌆</div><div class="gt-name">GTA V</div><div class="gt-check">✓</div></div>
+      <div class="game-tile" data-game="Minecraft" onclick="this.classList.toggle('sel')"><div class="gt-emoji">⛏</div><div class="gt-name">Minecraft</div><div class="gt-check">✓</div></div>
+      <div class="game-tile" data-game="LoL" onclick="this.classList.toggle('sel')"><div class="gt-emoji">🏆</div><div class="gt-name">League</div><div class="gt-check">✓</div></div>
+      <div class="game-tile" data-game="Elden Ring" onclick="this.classList.toggle('sel')"><div class="gt-emoji">⚔️</div><div class="gt-name">Elden Ring</div><div class="gt-check">✓</div></div>
+      <div class="game-tile" data-game="Apex" onclick="this.classList.toggle('sel')"><div class="gt-emoji">🦅</div><div class="gt-name">Apex</div><div class="gt-check">✓</div></div>
+      <div class="game-tile" data-game="Overwatch" onclick="this.classList.toggle('sel')"><div class="gt-emoji">🛡</div><div class="gt-name">Overwatch</div><div class="gt-check">✓</div></div>
+      <div class="game-tile" data-game="Warzone" onclick="this.classList.toggle('sel')"><div class="gt-emoji">💣</div><div class="gt-name">Warzone</div><div class="gt-check">✓</div></div>
+      <div class="game-tile" data-game="EA FC" onclick="this.classList.toggle('sel')"><div class="gt-emoji">⚽</div><div class="gt-name">EA FC</div><div class="gt-check">✓</div></div>
+    </div>
+
+    <div class="field"><label>¿No está tu juego? Escríbelo</label><input type="text" id="inp-customgame" placeholder="Nombre del juego..." maxlength="30"/></div>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="goTo(3)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+      <button class="btn-next" onclick="goTo(5)">SIGUIENTE →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======== STEP 5: MÚSICA ======== -->
+<div class="step" id="step-5">
+  <div class="step-inner">
+    <div class="step-tag">Paso 5 de 6 · Música</div>
+    <div class="step-title">¿Qué suena mientras juegas?</div>
+    <div class="step-sub">Conecta tu playlist o escribe tus artistas favoritos.</div>
+
+    <div class="field"><label>Link Spotify / YouTube (playlist)</label><input type="url" id="inp-playlist" placeholder="https://open.spotify.com/..."/></div>
+
+    <div class="field-row">
+      <div class="field"><label>Artista #1</label><input type="text" id="inp-a1" placeholder="Ej: Bad Bunny" maxlength="30"/></div>
+      <div class="field"><label>Artista #2</label><input type="text" id="inp-a2" placeholder="Ej: Feid" maxlength="30"/></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Artista #3</label><input type="text" id="inp-a3" placeholder="Ej: The Weeknd" maxlength="30"/></div>
+      <div class="field"><label>Canción favorita</label><input type="text" id="inp-song" placeholder="Título" maxlength="40"/></div>
+    </div>
+
+    <div class="field"><label>Géneros musicales</label></div>
+    <div class="chips">
+      <div class="chip" onclick="this.classList.toggle('sel')">Urbano</div>
+      <div class="chip" onclick="this.classList.toggle('sel')">Trap</div>
+      <div class="chip" onclick="this.classList.toggle('sel')">Hip-Hop</div>
+      <div class="chip" onclick="this.classList.toggle('sel')">Electrónica</div>
+      <div class="chip" onclick="this.classList.toggle('sel')">Lo-fi</div>
+      <div class="chip" onclick="this.classList.toggle('sel')">Rock</div>
+      <div class="chip" onclick="this.classList.toggle('sel')">Metal</div>
+      <div class="chip" onclick="this.classList.toggle('sel')">Pop</div>
+      <div class="chip" onclick="this.classList.toggle('sel')">Indie</div>
+      <div class="chip" onclick="this.classList.toggle('sel')">K-Pop</div>
+      <div class="chip" onclick="this.classList.toggle('sel')">Anime OST</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="goTo(4)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+      <button class="btn-next" onclick="goTo(6)">SIGUIENTE →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======== STEP 6: REDES ======== -->
+<div class="step" id="step-6">
+  <div class="step-inner">
+    <div class="step-tag">Paso 6 de 6 · Redes sociales</div>
+    <div class="step-title">¿Dónde te encuentran?</div>
+    <div class="step-sub">Todo opcional. Conecta las que quieras mostrar en tu perfil.</div>
+
+    <div class="field-row">
+      <div class="field"><label>Discord</label><input type="text" id="inp-discord" placeholder="discord.gg/..." maxlength="60"/></div>
+      <div class="field"><label>YouTube</label><input type="text" id="inp-youtube" placeholder="@tucanal" maxlength="60"/></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Kick</label><input type="text" id="inp-kick" placeholder="kick.com/..." maxlength="60"/></div>
+      <div class="field"><label>TikTok</label><input type="text" id="inp-tiktok" placeholder="@usuario" maxlength="40"/></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Roblox</label><input type="text" id="inp-roblox" placeholder="roblox.com/..." maxlength="60"/></div>
+      <div class="field"><label>Steam</label><input type="text" id="inp-steam" placeholder="steamcommunity.com/..." maxlength="80"/></div>
+    </div>
+    <div class="field"><label>Spotify (perfil o playlist)</label><input type="url" id="inp-spotify" placeholder="open.spotify.com/user/..."/></div>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="goTo(5)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+      <button class="btn-next" onclick="finishSetup()">FINALIZAR →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======== STEP 7: DONE ======== -->
+<div class="step" id="step-7">
+  <div class="step-inner" style="align-items:center;text-align:center;">
+    <div style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;">Setup completo</div>
+    <div class="done-av" id="doneAv"><img id="doneAvImg"/><span id="doneAvLetter">?</span></div>
+    <div style="font-size:28px;font-weight:800;letter-spacing:.06em;" id="doneName">—</div>
+    <div style="font-size:13px;color:var(--muted);margin-top:4px;margin-bottom:20px;" id="doneHandle">@— · —</div>
+    <div class="done-tags" id="doneTags"></div>
+    <div class="done-summary" id="doneSummary" style="width:100%;text-align:left;"></div>
+    <button class="btn-primary" onclick="enterApp()">ENTRAR A VEX OS →</button>
+    <button class="btn-secondary" onclick="goTo(1)">Editar perfil</button>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* Particles */
+(()=>{
+  const amb=document.getElementById('ambient');
+  for(let i=0;i<20;i++){
+    const s=document.createElement('div');s.className='speck';
+    s.style.left=Math.random()*100+'vw';
+    s.style.setProperty('--dx',(Math.random()*60-30)+'px');
+    s.style.animationDuration=(12+Math.random()*14)+'s';
+    s.style.animationDelay=(Math.random()*16)+'s';
+    amb.appendChild(s);
+  }
+})();
+
+/* Navigation */
+let cur=0;
+function goTo(n){
+  const c=document.getElementById('step-'+cur);
+  const nx=document.getElementById('step-'+n);
+  c.classList.remove('active');c.classList.add('out');
+  setTimeout(()=>c.classList.remove('out'),350);
+  nx.classList.add('active');cur=n;
+  // progress
+  const pw=document.getElementById('progressWrap');
+  pw.className='progress-wrap'+(n>=1&&n<=6?' visible':'');
+  for(let i=1;i<=6;i++) document.getElementById('p'+i).style.width=i<=n?'100%':'0%';
+  nx.scrollTop=0;
+}
+
+/* Toast */
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.style.opacity='1';el.style.transform='translateX(-50%) translateY(0)';
+  setTimeout(()=>{el.style.opacity='0';el.style.transform='translateX(-50%) translateY(10px)';},2200);
+}
+
+/* Avatar */
+document.getElementById('avatarFile').addEventListener('change',function(){
+  const file=this.files[0];if(!file)return;
+  const r=new FileReader();
+  r.onload=e=>{
+    const u=e.target.result;
+    const img=document.getElementById('avatarPreview');
+    img.src=u;img.style.display='block';
+    document.getElementById('avatarIcon').style.display='none';
+    document.getElementById('avatarLbl').style.display='none';
+    document.getElementById('doneAvImg').src=u;
+    document.getElementById('doneAvImg').style.display='block';
+    document.getElementById('doneAvLetter').style.display='none';
+    localStorage.setItem('vex_onboard_avatar',u);
+  };
+  r.readAsDataURL(file);
+});
+
+/* Status selector */
+function selStatus(el){
+  document.querySelectorAll('.status-tile').forEach(t=>t.classList.remove('sel'));
+  el.classList.add('sel');
+}
+/* Platform/tile toggle */
+function toggle(el){el.classList.toggle('sel');}
+
+/* Validation */
+function validateStep1(){
+  if(!document.getElementById('inp-name').value.trim()){toast('Escribe tu nombre');return;}
+  if(!document.getElementById('inp-username').value.trim()){toast('Escribe tu username');return;}
+  goTo(2);
+}
+function validateStep2(){
+  if(!document.getElementById('inp-country').value){toast('Selecciona tu país');return;}
+  goTo(3);
+}
+
+/* Collect & save */
+function finishSetup(){
+  const name=document.getElementById('inp-name').value.trim();
+  const username=document.getElementById('inp-username').value.trim().replace(/^@/,'');
+  const games=[...document.querySelectorAll('.game-tile.sel')].map(t=>t.dataset.game);
+  const custom=document.getElementById('inp-customgame').value.trim();
+  if(custom&&!games.includes(custom)) games.push(custom);
+  const platforms=[...document.querySelectorAll('.platform-tile.sel')].map(t=>t.dataset.p);
+  const gameGenres=[...document.querySelectorAll('#step-3 .chip.sel')].map(c=>c.textContent);
+  const musicGenres=[...document.querySelectorAll('#step-5 .chip.sel')].map(c=>c.textContent);
+  const statusEl=document.querySelector('.status-tile.sel');
+  const artists=[
+    document.getElementById('inp-a1').value.trim(),
+    document.getElementById('inp-a2').value.trim(),
+    document.getElementById('inp-a3').value.trim()
+  ].filter(Boolean);
+
+  const profile={
+    name, username,
+    bio: document.getElementById('inp-bio').value.trim(),
+    country: document.getElementById('inp-country').value,
+    lang: document.getElementById('inp-lang').value,
+    schedule: document.getElementById('inp-schedule').value,
+    status: statusEl?statusEl.dataset.s:'online',
+    avatar: localStorage.getItem('vex_onboard_avatar')||'',
+    platforms, gameGenres,
+    games: games.map(g=>({name:g,emoji:'🎮',genre:'',hours:''})),
+    music: artists.map(a=>({title:a,artist:'',genre:musicGenres[0]||'',url:''})),
+    musicGenres,
+    playlist: document.getElementById('inp-playlist').value.trim(),
+    favSong: document.getElementById('inp-song').value.trim(),
+    socials:{
+      discord: document.getElementById('inp-discord').value.trim(),
+      youtube: document.getElementById('inp-youtube').value.trim(),
+      kick:    document.getElementById('inp-kick').value.trim(),
+      tiktok:  document.getElementById('inp-tiktok').value.trim(),
+      roblox:  document.getElementById('inp-roblox').value.trim(),
+      steam:   document.getElementById('inp-steam').value.trim(),
+      spotify: document.getElementById('inp-spotify').value.trim()
+    },
+    setupDone: true
+  };
+  localStorage.setItem('vex_profile',JSON.stringify(profile));
+
+  // Populate done screen
+  document.getElementById('doneName').textContent=name;
+  document.getElementById('doneHandle').textContent='@'+username+' · '+profile.country;
+  document.getElementById('doneAvLetter').textContent=(name[0]||'?').toUpperCase();
+
+  const tagsEl=document.getElementById('doneTags');
+  tagsEl.innerHTML=[profile.country,profile.schedule,profile.lang,...platforms.slice(0,3)]
+    .filter(Boolean).map(t=>`<div class="dtag">${t}</div>`).join('');
+
+  const sumEl=document.getElementById('doneSummary');
+  sumEl.innerHTML=[
+    ['Juegos',games.slice(0,3).join(', ')||'—'],
+    ['Artistas',artists.slice(0,2).join(', ')||'—'],
+    ['Géneros',gameGenres.slice(0,3).join(', ')||'—'],
+    ['Música',musicGenres.slice(0,2).join(', ')||'—'],
+    ['Playlist',profile.playlist?'✓ Añadida':'—']
+  ].map(([k,v])=>`<div class="sum-row"><span class="sum-key">${k}</span><span class="sum-val">${v}</span></div>`).join('');
+
+  goTo(7);
+}
+
+function enterApp(){window.location.href='app.html';}
+function skipSetup(){
+  if(localStorage.getItem('vex_profile')) window.location.href='app.html';
+  else toast('Completa el setup primero');
+}
+(()=>{
+  const p=localStorage.getItem('vex_profile');
+  if(p&&JSON.parse(p).setupDone){
+    const b=document.querySelector('#step-0 .btn-secondary');
+    if(b) b.textContent='Continuar con perfil guardado →';
+  }
+})();
+</script>
+</body>
+</html>

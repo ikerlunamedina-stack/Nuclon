@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEX OS · Red Social Gamer</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/shared.css">
+<style>
+/* ---- Hero ---- */
+.hero{
+  min-height:calc(100vh - 64px);
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:60px 24px;position:relative;
+}
+.hero::before{
+  content:'';position:absolute;top:20%;left:50%;
+  width:600px;height:600px;transform:translate(-50%,-50%);
+  background:radial-gradient(circle, rgba(217,212,199,0.04) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 16px;border:1px solid var(--line);border-radius:20px;
+  font-size:11px;letter-spacing:.14em;color:var(--muted);
+  text-transform:uppercase;margin-bottom:28px;
+}
+.hero-tag span{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;}
+.hero h1{
+  font-size:clamp(42px,8vw,88px);font-weight:800;
+  letter-spacing:-.04em;line-height:1.05;
+  color:var(--ink);margin-bottom:20px;
+}
+.hero h1 em{font-style:normal;color:var(--accent);}
+.hero p{
+  font-size:clamp(15px,2.5vw,18px);color:var(--muted);
+  line-height:1.7;max-width:520px;margin-bottom:40px;
+}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;}
+
+/* ---- Stats bar ---- */
+.stats-bar{
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  background:var(--s1);
+}
+.stats-inner{
+  max-width:1100px;margin:0 auto;padding:28px 40px;
+  display:flex;justify-content:space-around;align-items:center;
+  flex-wrap:wrap;gap:20px;
+}
+.stat-item{text-align:center;}
+.stat-n{font-size:28px;font-weight:800;color:var(--ink);letter-spacing:-.02em;}
+.stat-l{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+
+/* ---- Features grid ---- */
+.features-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+  margin-top:48px;
+}
+@media(max-width:800px){.features-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:500px){.features-grid{grid-template-columns:1fr;}}
+.feat-card{
+  background:var(--s1);border:1px solid var(--line);
+  border-radius:18px;padding:24px;transition:.2s;
+}
+.feat-card:hover{border-color:var(--line2);transform:translateY(-2px);}
+.feat-icon{font-size:28px;margin-bottom:14px;}
+.feat-title{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:8px;}
+.feat-desc{font-size:13px;color:var(--muted);line-height:1.6;}
+
+/* ---- iPhone preview ---- */
+.preview-section{
+  max-width:1100px;margin:0 auto;padding:80px 40px;
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
+}
+@media(max-width:800px){.preview-section{grid-template-columns:1fr;text-align:center;}}
+.preview-phone{
+  width:220px;height:476px;
+  background:linear-gradient(180deg,#737373,#4b4b4b,#737373);
+  border-radius:36px;padding:4px;margin:0 auto;
+  box-shadow:0 24px 60px rgba(0,0,0,.6);
+}
+.preview-screen{
+  width:100%;height:100%;background:var(--bg);
+  border-radius:32px;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:10px;padding:20px;
+}
+.preview-av{width:56px;height:56px;border-radius:50%;background:var(--s2);border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:22px;}
+.preview-name{font-size:14px;font-weight:700;letter-spacing:.1em;color:var(--ink);}
+.preview-handle{font-size:9px;color:var(--muted);}
+.preview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:6px;width:100%;}
+.preview-tile{height:32px;background:var(--s1);border:1px solid var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;}
+
+/* ---- CTA banner ---- */
+.cta-banner{
+  background:var(--s1);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.cta-inner{
+  max-width:1100px;margin:0 auto;padding:60px 40px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;
+}
+.cta-text h2{font-size:clamp(22px,4vw,32px);font-weight:700;letter-spacing:-.02em;color:var(--ink);}
+.cta-text p{font-size:14px;color:var(--muted);margin-top:6px;}
+</style>
+</head>
+<body>
+<div class="ambient" id="ambient"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">VEX OS</a>
+  <div class="nav-links">
+    <a href="index.html" class="active">Inicio</a>
+    <a href="creators.html">Creadores</a>
+    <a href="rules.html">Reglas</a>
+    <a href="app.html">App</a>
+  </div>
+  <div class="nav-cta">
+    <a href="login.html" class="btn-nav-ghost">Entrar</a>
+    <a href="login.html#register" class="btn-nav-solid">Registrarse</a>
+  </div>
+  <button class="nav-mobile-toggle" onclick="toggleMobileMenu()">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+  </button>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tag"><span></span>Red social gamer · Versión beta</div>
+    <h1>Tu identidad<br><em>digital</em> como<br>jugador.</h1>
+    <p>VEX OS es el perfil que siempre quisiste. Juegos, música, clips, stats y la comunidad para encontrar tu equipo.</p>
+    <div class="hero-btns">
+      <a href="login.html#register" class="btn btn-primary">CREAR PERFIL →</a>
+      <a href="app.html" class="btn btn-outline">Ver demo</a>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat-item"><div class="stat-n">10K+</div><div class="stat-l">Gamers</div></div>
+      <div class="stat-item"><div class="stat-n">7</div><div class="stat-l">Pantallas</div></div>
+      <div class="stat-item"><div class="stat-n">∞</div><div class="stat-l">Partidas</div></div>
+      <div class="stat-item"><div class="stat-n">100%</div><div class="stat-l">Gratis</div></div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="section">
+    <div class="section-label">¿Qué incluye?</div>
+    <div class="section-title">Todo en un solo perfil.</div>
+    <div class="section-sub">Desde tus juegos favoritos hasta tu playlist. Tu identidad completa, siempre disponible.</div>
+
+    <div class="features-grid">
+      <div class="feat-card"><div class="feat-icon">👤</div><div class="feat-title">Perfil gamer</div><div class="feat-desc">Nombre, país, estado, nivel, insignias y bio personalizada.</div></div>
+      <div class="feat-card"><div class="feat-icon">🎮</div><div class="feat-title">Biblioteca de juegos</div><div class="feat-desc">Horas jugadas, rachas activas, logros y géneros favoritos.</div></div>
+      <div class="feat-card"><div class="feat-icon">🎵</div><div class="feat-title">Música</div><div class="feat-desc">Top artistas, géneros, playlist de Spotify y lo que suena mientras juegas.</div></div>
+      <div class="feat-card"><div class="feat-icon">🎬</div><div class="feat-title">Clips & Highlights</div><div class="feat-desc">Tus mejores jugadas, clips destacados y galería por juego.</div></div>
+      <div class="feat-card"><div class="feat-icon">👥</div><div class="feat-title">Social</div><div class="feat-desc">Amigos, clanes, dúos frecuentes y estado en tiempo real.</div></div>
+      <div class="feat-card"><div class="feat-icon">🤝</div><div class="feat-title">Match</div><div class="feat-desc">Compatibilidad con otros jugadores por juegos, región, idioma y horario.</div></div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- PREVIEW -->
+  <div class="preview-section">
+    <div>
+      <div class="section-label">Diseño</div>
+      <div class="section-title">Un iPhone.<br>Tu mundo.</div>
+      <div class="section-sub" style="margin-bottom:28px;">El perfil aparece como un teléfono digital. Cada sección es una pantalla. Tu identidad como un sistema operativo propio.</div>
+      <a href="app.html" class="btn btn-outline">Ver perfil demo →</a>
+    </div>
+    <div>
+      <div class="preview-phone">
+        <div class="preview-screen">
+          <div style="width:60px;height:18px;background:#000;border-radius:999px;margin-bottom:6px;"></div>
+          <div class="preview-av">🎮</div>
+          <div class="preview-name">VEX</div>
+          <div class="preview-handle">@qv3x · 🇵🇪</div>
+          <div class="preview-grid">
+            <div class="preview-tile">🎯</div>
+            <div class="preview-tile">🧱</div>
+            <div class="preview-tile">🔫</div>
+            <div class="preview-tile">🌆</div>
+          </div>
+          <div style="width:100%;height:36px;background:var(--s1);border:1px solid var(--line);border-radius:10px;margin-top:6px;display:flex;align-items:center;padding:0 10px;gap:8px;">
+            <span style="font-size:12px;">🎵</span>
+            <div style="flex:1;height:4px;background:var(--line);border-radius:2px;overflow:hidden;"><div style="width:60%;height:100%;background:var(--accent);border-radius:2px;"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA BANNER -->
+  <div class="cta-banner">
+    <div class="cta-inner">
+      <div class="cta-text">
+        <h2>¿Listo para crear tu perfil?</h2>
+        <p>Gratis. Sin anuncios. Tuyo para siempre.</p>
+      </div>
+      <a href="login.html#register" class="btn btn-primary">EMPEZAR AHORA →</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-logo">VEX OS</div>
+    <div class="footer-links">
+      <a href="creators.html">Creadores</a>
+      <a href="rules.html">Reglas</a>
+      <a href="login.html">Entrar</a>
+    </div>
+    <div class="footer-copy">© 2025 VEX OS · Todos los derechos reservados</div>
+  </footer>
+
+</div>
+
+<script src="js/auth.js"></script>
+<script>
+spawnParticles();
+// Si ya está logueado, cambiar botones
+if(isLoggedIn()){
+  document.querySelectorAll('a[href="login.html"]').forEach(a=>{
+    a.textContent='Mi perfil'; a.href='app.html';
+  });
+}
+function toggleMobileMenu(){
+  const links=document.querySelector('.nav-links');
+  if(!links) return;
+  if(links.style.display==='flex'){
+    links.style.display='';
+  } else {
+    links.style.cssText='display:flex;flex-direction:column;position:absolute;top:64px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);padding:20px 24px;gap:16px;z-index:99;';
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEX OS · Reglas</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/shared.css">
+<style>
+.rules-wrap{max-width:720px;margin:0 auto;padding:80px 40px;}
+@media(max-width:600px){.rules-wrap{padding:60px 20px;}}
+.rule-block{margin-bottom:40px;}
+.rule-num{
+  font-size:10px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:8px;
+}
+.rule-title{font-size:20px;font-weight:700;color:var(--ink);margin-bottom:10px;}
+.rule-body{font-size:14px;color:var(--muted);line-height:1.8;}
+.rule-body ul{padding-left:18px;margin-top:8px;}
+.rule-body ul li{margin-bottom:6px;}
+.rule-divider{border:none;border-top:1px solid var(--line);margin:32px 0;}
+.rule-badge{
+  display:inline-block;padding:3px 10px;border-radius:20px;
+  font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:8px;
+}
+.rule-badge.red{background:rgba(192,57,43,.1);border:1px solid rgba(192,57,43,.3);color:var(--red);}
+.rule-badge.yellow{background:rgba(200,168,75,.1);border:1px solid rgba(200,168,75,.3);color:var(--yellow);}
+.rule-badge.green{background:rgba(61,153,112,.1);border:1px solid rgba(61,153,112,.3);color:var(--green);}
+</style>
+</head>
+<body>
+<div class="ambient" id="ambient"></div>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">VEX OS</a>
+  <div class="nav-links">
+    <a href="index.html">Inicio</a>
+    <a href="creators.html">Creadores</a>
+    <a href="rules.html" class="active">Reglas</a>
+    <a href="app.html">App</a>
+  </div>
+  <div class="nav-cta">
+    <a href="login.html" class="btn-nav-ghost" id="navLoginBtn">Entrar</a>
+    <a href="login.html#register" class="btn-nav-solid" id="navRegBtn">Registrarse</a>
+  </div>
+</nav>
+
+<div class="page">
+<div class="rules-wrap">
+  <div class="section-label">Comunidad</div>
+  <div class="section-title" style="margin-bottom:8px;">Reglas de VEX OS</div>
+  <div style="font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:48px;">
+    Para mantener una comunidad sana, positiva y segura para todos los jugadores. Estas reglas aplican dentro de la plataforma, el Discord y cualquier espacio oficial de VEX OS.
+  </div>
+
+  <hr class="rule-divider" style="margin-top:0;">
+
+  <div class="rule-block">
+    <div class="rule-badge green">Requisito</div>
+    <div class="rule-num">Regla 01</div>
+    <div class="rule-title">Edad mínima</div>
+    <div class="rule-body">Debes tener al menos <strong style="color:var(--ink);">14 años</strong> para crear una cuenta en VEX OS. Al registrarte confirmas que cumples este requisito.</div>
+  </div>
+
+  <hr class="rule-divider">
+
+  <div class="rule-block">
+    <div class="rule-badge green">Obligatorio</div>
+    <div class="rule-num">Regla 02</div>
+    <div class="rule-title">Respeto ante todo</div>
+    <div class="rule-body">Trata a todos los jugadores con respeto independientemente de su nivel, plataforma, país o estilo de juego.
+      <ul>
+        <li>No insultos, acoso ni discriminación de ningún tipo.</li>
+        <li>Las diferencias de opinión son normales — los ataques personales no.</li>
+        <li>Crítica constructiva sí, toxicidad no.</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="rule-divider">
+
+  <div class="rule-block">
+    <div class="rule-badge red">Prohibido</div>
+    <div class="rule-num">Regla 03</div>
+    <div class="rule-title">Contenido prohibido</div>
+    <div class="rule-body">Está estrictamente prohibido publicar o compartir:
+      <ul>
+        <li>Contenido sexual explícito o inapropiado.</li>
+        <li>Información personal de terceros sin su consentimiento (doxxing).</li>
+        <li>Contenido violento, amenazas o mensajes de odio.</li>
+        <li>Spam, publicidad no solicitada o bots.</li>
+        <li>Trampas, hacks o métodos para romper las reglas de otros juegos.</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="rule-divider">
+
+  <div class="rule-block">
+    <div class="rule-badge yellow">Importante</div>
+    <div class="rule-num">Regla 04</div>
+    <div class="rule-title">Perfiles auténticos</div>
+    <div class="rule-body">
+      <ul>
+        <li>No te hagas pasar por otra persona, streamer o figura pública.</li>
+        <li>No uses el nombre, logo o identidad de otra persona sin permiso.</li>
+        <li>Un usuario por persona — las cuentas múltiples para evitar sanciones están prohibidas.</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="rule-divider">
+
+  <div class="rule-block">
+    <div class="rule-badge yellow">Importante</div>
+    <div class="rule-num">Regla 05</div>
+    <div class="rule-title">Privacidad y seguridad</div>
+    <div class="rule-body">
+      <ul>
+        <li>No compartas tu contraseña con nadie.</li>
+        <li>No solicites datos personales (número, dirección, contraseñas) a otros usuarios.</li>
+        <li>Si ves algo sospechoso, usa el botón de reporte.</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="rule-divider">
+
+  <div class="rule-block">
+    <div class="rule-badge red">Consecuencias</div>
+    <div class="rule-num">Regla 06</div>
+    <div class="rule-title">Sanciones</div>
+    <div class="rule-body">El incumplimiento de estas reglas puede resultar en:
+      <ul>
+        <li><strong style="color:var(--ink);">Advertencia</strong> — para infracciones leves o primeras veces.</li>
+        <li><strong style="color:var(--yellow);">Suspensión temporal</strong> — para infracciones repetidas.</li>
+        <li><strong style="color:var(--red);">Baneo permanente</strong> — para infracciones graves o comportamiento malicioso.</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="rule-divider">
+
+  <div style="font-size:12px;color:var(--muted2);line-height:1.7;">
+    Última actualización: Junio 2025 · Las reglas pueden actualizarse. Seguir usando la plataforma implica aceptar los cambios.
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-logo">VEX OS</div>
+  <div class="footer-links">
+    <a href="index.html">Inicio</a>
+    <a href="creators.html">Creadores</a>
+    <a href="login.html">Entrar</a>
+  </div>
+  <div class="footer-copy">© 2025 VEX OS</div>
+</footer>
+</div>
+
+<script src="js/auth.js"></script>
+<script>
+spawnParticles();
+if(isLoggedIn()){
+  document.getElementById('navLoginBtn').textContent='Mi perfil';
+  document.getElementById('navLoginBtn').href='app.html';
+  document.getElementById('navRegBtn').style.display='none';
+}
+</script>
+</body>
+</html>
